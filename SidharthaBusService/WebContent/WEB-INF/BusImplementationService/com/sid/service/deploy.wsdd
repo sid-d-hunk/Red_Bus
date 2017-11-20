@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from BusImplementationService WSDL service -->
+
+  <service name="BusImplementation" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://service.sid.com"/>
+      <parameter name="wsdlServiceElement" value="BusImplementationService"/>
+      <parameter name="schemaQualified" value="http://service.sid.com"/>
+      <parameter name="wsdlServicePort" value="BusImplementation"/>
+      <parameter name="className" value="com.sid.service.BusImplementation"/>
+      <parameter name="wsdlPortType" value="BusImplementation"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://service.sid.com" xmlns:retNS="http://service.sid.com" xmlns:rtns="http://service.sid.com" xmlns:tns="http://service.sid.com" name="getBusList" qname="operNS:getBusList" returnQName="retNS:getBusListReturn" returnType="rtns:ArrayOf_xsd_anyType" returnItemQName="tns:item" soapAction="">
+        <parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" xmlns:pns="http://service.sid.com" qname="pns:journeyDate" type="tns:dateTime"/>
+        <parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" xmlns:pns="http://service.sid.com" qname="pns:returnDate" type="tns:dateTime"/>
+      </operation>
+      <parameter name="allowedMethods" value="getBusList"/>
+
+      <arrayMapping xmlns:ns="http://service.sid.com" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema" qname="ns:ArrayOf_xsd_anyType" type="java:java.lang.Object[]" innerType="cmp-ns:anyType" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://service.sid.com" qname="ns:&gt;getBusListResponse" type="java:com.sid.service.GetBusListResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://service.sid.com" qname="ns:&gt;getBusList" type="java:com.sid.service.GetBusList" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+  </service>
+</deployment>
